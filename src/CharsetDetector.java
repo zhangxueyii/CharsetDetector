@@ -36,6 +36,8 @@ public class CharsetDetector {
             CharsetDecoder decoder = charset.newDecoder();
             decoder.reset();
 
+            // When Chinese characters and other characters are in same file, 512 length is not work well.
+            // it might split Chinese character and lead to wrong charset.
             byte[] buffer = new byte[512];
             boolean identified = false;
             while ((input.read(buffer) != -1) && (!identified)) {
